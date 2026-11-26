@@ -1,12 +1,12 @@
 # Firas Bchir
 
-> Software engineer and founder based in Sfax, Tunisia. Co-founder & CTO of Fidèle, a loyalty app for cafés, restaurants and shops in Tunisia, and co-founder of iLab TN, a studio for software and 3D technology.
+> Software engineer and founder based in Sfax, Tunisia. Co-founder & CTO of Fidèle, a loyalty app for cafés, restaurants and shops in Tunisia, and co-founder & CTO of iLab TN, a studio for software and 3D technology.
 
 ## About
 
 - Name: Firas Bchir
 - Location: Sfax, Tunisia
-- Roles: Co-founder & CTO, Fidèle; Co-founder, iLab TN
+- Roles: Co-founder & CTO, Fidèle; Co-founder & CTO, iLab TN
 - Languages: Arabic, French, English
 - Education: Full-Stack Software Development, RBK Tunisia (certificate by Hack Reactor, Galvanize Inc.)
 - Builds with: Flutter, Next.js, Firebase, Supabase, PostgreSQL
