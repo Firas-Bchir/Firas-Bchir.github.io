@@ -20,6 +20,7 @@
 <meta property="og:image" content="https://firas-bchir.github.io/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:alt" content="Firas Bchir, Co-founder &amp; CTO at Fidèle">
 <meta property="profile:first_name" content="Firas">
 <meta property="profile:last_name" content="Bchir">
@@ -44,7 +45,7 @@
       "url": "https://firas-bchir.github.io/",
       "name": "Firas Bchir — Software Engineer, Co-founder & CTO at Fidèle",
       "inLanguage": "en",
-      "dateModified": "2026-11-26T19:05:00+01:00",
+      "dateModified": "2026-11-26T20:45:00+01:00",
       "mainEntity": { "@id": "https://firas-bchir.github.io/#person" }
     },
     {
@@ -72,7 +73,8 @@
       "sameAs": [
         "https://www.linkedin.com/in/firas-bchir/",
         "https://github.com/Firas-Bchir",
-        "https://www.instagram.com/firas_bchir"
+        "https://www.instagram.com/firas_bchir",
+        "https://www.facebook.com/bc.firas"
       ]
     }
   ]
@@ -80,6 +82,10 @@
 </script>
 <style>
 @property --a { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+/* fallback faces sized like Geist and Instrument Serif, so the page does not jump when the web fonts arrive */
+@font-face { font-family: "Geist Fallback"; src: local("Arial"), local("ArialMT"); size-adjust: 104.76%; ascent-override: 95.94%; descent-override: 28.16%; line-gap-override: 0%; }
+@font-face { font-family: "Instrument Serif Fallback"; src: local("Times New Roman"), local("TimesNewRomanPSMT"); size-adjust: 83.94%; ascent-override: 117.94%; descent-override: 36.93%; line-gap-override: 0%; }
 
 :root {
   --bg: #0b0a14;
@@ -97,8 +103,8 @@
   --grad: linear-gradient(100deg, #a99fff, #86a6ff 60%, #dfe5ff);
   /* one light sweeping around the ring, not a rainbow */
   --ring: conic-gradient(from var(--a), rgb(143 132 255 / .15) 0deg, rgb(143 132 255 / .95) 70deg, #eef1ff 100deg, rgb(122 162 255 / .95) 130deg, rgb(122 162 255 / .15) 210deg, rgb(143 132 255 / .15) 360deg);
-  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --serif: "Instrument Serif", "Instrument Serif Fallback", ui-serif, Georgia, serif;
   --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --pad: clamp(16px, 4vw, 56px);
   --max: 1240px;
@@ -751,6 +757,8 @@ footer a:hover { color: var(--ink); }
       <nav aria-label="Footer">
         <a href="https://www.linkedin.com/in/firas-bchir/" target="_blank" rel="noopener me">LinkedIn</a>
         <a href="https://github.com/Firas-Bchir" target="_blank" rel="noopener me">GitHub</a>
+        <a href="https://www.instagram.com/firas_bchir" target="_blank" rel="noopener me">Instagram</a>
+        <a href="https://www.facebook.com/bc.firas" target="_blank" rel="noopener me">Facebook</a>
         <a href="mailto:firas.bchirr@gmail.com">Email</a>
         <a href="#top">Back to top ↑</a>
       </nav>
