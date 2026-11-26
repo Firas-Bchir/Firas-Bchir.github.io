@@ -1,0 +1,33 @@
+# Firas Bchir
+
+> Software engineer and founder based in Sfax, Tunisia. Co-founder & CTO of Fidèle, a loyalty app for cafés, restaurants and shops in Tunisia, and co-founder of iLab TN, a studio for software and 3D technology.
+
+## About
+
+- Name: Firas Bchir
+- Location: Sfax, Tunisia
+- Roles: Co-founder & CTO, Fidèle; Co-founder, iLab TN
+- Languages: Arabic, French, English
+- Education: Full-Stack Software Development, RBK Tunisia (certificate by Hack Reactor, Galvanize Inc.)
+- Builds with: Flutter, Next.js, Firebase, Supabase, PostgreSQL
+- Before software: ran two Tunisian businesses (finance, hiring, sales and operations) and led a first startup, a 3D game studio.
+
+## Selected work
+
+- [Fidèle](https://fidele.tn): loyalty app for cafés, restaurants and shops in Tunisia, live on the App Store and Google Play. Works offline, signs every reward redemption so rewards can't be forged, and gives business owners a web dashboard with Wafi, an AI advisor for merchants.
+- [MZ Clean Fresh](https://mzcleanfresh.de): website, online shop and back office for a cleaning company in Germany, in German and English, with German-compliant invoicing.
+- [Rifel](https://rifel-shoes.tn): online store for a Tunisian luxury women's shoe brand, with a storefront in three languages, a full admin panel and cash-on-delivery checkout.
+- FunLac: offline invoicing software for a family leisure park near Sfax, plus the park's website in French, Arabic and English.
+- Project Sentinel: anti-fraud service for cash-on-delivery shops that answers block, allow or verify before a fake order is placed.
+- Oracle: four short lessons and a daily memory quiz delivered to a smartwatch, fully automated.
+
+## Lab
+
+Prototypes, MVPs and tools: Actively Exploited (automated cybersecurity video series), Exploits Alert, a multi-store commerce platform, Reporty (civic issue reporting), Dweya (nearest open pharmacy), Sujud (offline-first Islamic app), Watch Buzz (Bluetooth smartwatch app), Fidèle promo reels animated in code, and [Claude Skills](https://github.com/Firas-Bchir/claude-skills) (open source).
+
+## Profiles
+
+- Website: https://firas-bchir.github.io/
+- LinkedIn: https://www.linkedin.com/in/firas-bchir/
+- GitHub: https://github.com/Firas-Bchir
+- Contact: see the contact section of the website
