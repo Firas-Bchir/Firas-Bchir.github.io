@@ -206,7 +206,9 @@ h1.name { margin: 22px 0 0; font-weight: 650; line-height: .9; letter-spacing: -
 
 .portrait-wrap { position: relative; justify-self: center; width: min(100%, 380px); perspective: 900px; }
 .portrait { position: relative; aspect-ratio: 1; border-radius: 50%; isolation: isolate; transition: rotate .5s var(--ease); }
-.portrait::before, .portrait::after { content: ""; position: absolute; border-radius: 50%; z-index: -1; background: var(--ring); animation: spin 7s linear infinite; }
+/* the ring turns by rotating the layer (done by the graphics chip), not by repainting the gradient each frame */
+.portrait::before, .portrait::after { content: ""; position: absolute; border-radius: 50%; z-index: -1; background: var(--ring); animation: turn 7s linear infinite; }
+@keyframes turn { to { transform: rotate(1turn); } }
 .portrait::before { inset: -3px; }
 .portrait::after { inset: -10%; filter: blur(48px); opacity: .55; }
 .portrait img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 6px solid var(--bg); }
@@ -363,7 +365,7 @@ dl.info dd { margin: 0; font-size: 16px; }
 
 /* ---------- contact ---------- */
 .contact { position: relative; margin-top: clamp(40px, 6vw, 64px); padding: clamp(40px, 7vw, 100px) clamp(22px, 6vw, 80px); border-radius: 40px; overflow: hidden; isolation: isolate; border: 1px solid var(--line); background: var(--bg-2); text-align: center; }
-.contact::before { content: ""; position: absolute; inset: -40%; z-index: -1; background: conic-gradient(from var(--a), rgb(139 107 255 / .55), rgb(122 162 255 / .35), rgb(223 229 255 / .25), rgb(167 139 250 / .4), rgb(139 107 255 / .55)); filter: blur(90px); opacity: .55; animation: spin 16s linear infinite; }
+.contact::before { content: ""; position: absolute; inset: -40%; z-index: -1; background: conic-gradient(from var(--a), rgb(139 107 255 / .55), rgb(122 162 255 / .35), rgb(223 229 255 / .25), rgb(167 139 250 / .4), rgb(139 107 255 / .55)); filter: blur(90px); opacity: .55; }
 .contact h2.title { margin: 18px auto 0; max-width: 14ch; }
 .contact p { margin: 22px auto 0; max-width: 44ch; color: var(--muted); font-size: clamp(16px, 1.4vw, 19px); }
 .mail-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; margin-top: 36px; }
@@ -394,7 +396,7 @@ footer a:hover { color: var(--ink); }
     .wordmark { animation: lift both var(--ease); animation-timeline: view(); animation-range: entry 0% cover 40%; }
   }
 }
-@keyframes rise { from { opacity: 0; transform: translateY(56px) scale(.97); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(56px) scale(.97); } to { opacity: 1; transform: none; } }
 @keyframes lift { from { opacity: 0; transform: translateY(40%); } to { opacity: 1; transform: none; } }
 
 /* ---------- responsive ---------- */
@@ -437,8 +439,18 @@ footer a:hover { color: var(--ink); }
   .chip-a { display: none; }
   .dock a { min-width: 60px; }
 }
-@media (hover: none) {
+/* phones and tablets: same look, lighter effects (no full-screen grain blend, no live glass blur, no repainting rings) */
+@media (hover: none), (pointer: coarse) {
   .about-photo img { scale: 1; }
+  body::after { display: none; }
+  .island, .dock { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgb(14 13 26 / .95); }
+  .fact, .chip-float { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .island::before, .dock::before, .about-photo .ring, .c-fidele { animation: none; }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .c-fidele.reveal { animation: rise both var(--ease); animation-timeline: view(); animation-range: entry 0% cover 22%; }
+    }
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
@@ -560,11 +572,11 @@ footer a:hover { color: var(--ink); }
             </div>
             <div class="stack"><span>Flutter</span><span>Firebase</span><span>Cloud Functions</span><span>Offline-first</span><span>Ed25519 signing</span><span>AI advisor</span></div>
           </div>
-          <div class="phone" aria-hidden="true"><div class="phone-screen"><img src="assets/fidele-app.webp" alt="" width="390" height="844" loading="lazy"></div></div>
+          <div class="phone" aria-hidden="true"><div class="phone-screen"><img src="assets/fidele-app.webp" alt="" width="390" height="844" loading="lazy" decoding="async"></div></div>
         </article>
 
         <article class="card c-mz tilt reveal">
-          <div class="browser" aria-hidden="true"><div class="bar"><i></i><i></i><i></i><span>mzcleanfresh.de</span></div><img src="assets/mz-site.webp" alt="" width="960" height="600" loading="lazy"></div>
+          <div class="browser" aria-hidden="true"><div class="bar"><i></i><i></i><i></i><span>mzcleanfresh.de</span></div><img src="assets/mz-site.webp" alt="" width="960" height="600" loading="lazy" decoding="async"></div>
           <div class="meta"><span class="tag live">Live</span><span class="tag">Germany</span></div>
           <h3>MZ Clean Fresh</h3>
           <p>Website, online shop and back office for a cleaning company, in German and English, with German-compliant invoicing.</p>
@@ -572,7 +584,7 @@ footer a:hover { color: var(--ink); }
         </article>
 
         <article class="card c-rifel tilt reveal">
-          <div class="browser" aria-hidden="true"><div class="bar"><i></i><i></i><i></i><span>rifel-shoes.tn</span></div><img src="assets/rifel-site.webp" alt="" width="960" height="600" loading="lazy"></div>
+          <div class="browser" aria-hidden="true"><div class="bar"><i></i><i></i><i></i><span>rifel-shoes.tn</span></div><img src="assets/rifel-site.webp" alt="" width="960" height="600" loading="lazy" decoding="async"></div>
           <div class="meta"><span class="tag live">Live</span><span class="tag">Tunisia</span></div>
           <h3>Rifel</h3>
           <p>Online store for a Tunisian luxury women's shoe brand: a storefront in three languages, a full admin panel and cash-on-delivery checkout.</p>
@@ -677,7 +689,7 @@ footer a:hover { color: var(--ink); }
           <figure class="about-photo">
             <picture>
               <source srcset="assets/firas-bchir-portrait.webp" type="image/webp">
-              <img src="assets/firas-bchir-portrait.jpg" width="864" height="1080" alt="Firas Bchir" loading="lazy">
+              <img src="assets/firas-bchir-portrait.jpg" width="864" height="1080" alt="Firas Bchir" loading="lazy" decoding="async">
             </picture>
             <span class="ring" aria-hidden="true"></span>
             <figcaption><span><span class="dot" aria-hidden="true"></span>Sfax, Tunisia</span><span>Firas Bchir</span></figcaption>
@@ -703,8 +715,8 @@ footer a:hover { color: var(--ink); }
       <div class="contact reveal">
         <a class="full-length" href="assets/firas-bchir-full-length.jpg" target="_blank" rel="noopener">
           <picture>
-            <source srcset="assets/firas-bchir-full-length.webp" type="image/webp">
-            <img src="assets/firas-bchir-full-length.jpg" width="1104" height="2521" alt="Firas Bchir, full-length photo in a white shirt" loading="lazy">
+            <source srcset="assets/firas-bchir-full-length-sm.webp 240w, assets/firas-bchir-full-length.webp 1104w" sizes="104px" type="image/webp">
+            <img src="assets/firas-bchir-full-length.jpg" width="1104" height="2521" alt="Firas Bchir, full-length photo in a white shirt" loading="lazy" decoding="async">
           </picture>
         </a>
         <div class="kicker" style="justify-content:center">04 · Contact</div>
@@ -853,15 +865,18 @@ footer a:hover { color: var(--ink); }
     addEventListener("pointermove", (e) => { x = e.clientX; y = e.clientY; if (gx < -900) { gx = x; gy = y; } document.documentElement.classList.add("has-pointer"); if (!raf) raf = requestAnimationFrame(step); }, { passive: true });
   }
 
-  /* aurora: a small WebGL shader behind the hero; pauses when hidden or off-screen */
+  /* aurora: a small WebGL shader behind the hero. It pauses while the page scrolls, when the hero is mostly
+     off-screen and when the tab is hidden; on phones it draws fewer pixels, 30 times a second. */
   const canvas = document.getElementById("aurora");
   const gl = canvas && canvas.getContext("webgl", { antialias: false, alpha: false, powerPreference: "low-power" });
   if (!gl) return;
+  const coarse = matchMedia("(pointer: coarse)").matches;
   const vs = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
-  const fs = `precision mediump float;uniform vec2 r;uniform float t;
+  const fs = `#define OCT ${coarse ? 3 : 4}
+precision mediump float;uniform vec2 r;uniform float t;
 vec2 h(vec2 p){p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));return -1.+2.*fract(sin(p)*43758.5453);}
 float n(vec2 p){const float K1=.366025404;const float K2=.211324865;vec2 i=floor(p+(p.x+p.y)*K1);vec2 a=p-i+(i.x+i.y)*K2;float m=step(a.y,a.x);vec2 o=vec2(m,1.-m);vec2 b=a-o+K2;vec2 c=a-1.+2.*K2;vec3 w=max(.5-vec3(dot(a,a),dot(b,b),dot(c,c)),0.);vec3 q=w*w*w*w*vec3(dot(a,h(i)),dot(b,h(i+o)),dot(c,h(i+1.)));return dot(q,vec3(70.));}
-float f(vec2 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*n(p);p*=2.02;a*=.5;}return s;}
+float f(vec2 p){float s=0.,a=.5;for(int i=0;i<OCT;i++){s+=a*n(p);p*=2.02;a*=.5;}return s;}
 void main(){vec2 uv=gl_FragCoord.xy/r;vec2 p=uv;p.x*=r.x/r.y;float tt=t*.045;
 vec2 q=vec2(f(p*1.1+vec2(0.,tt)),f(p*1.1+vec2(5.2,-tt*.8)));
 float v=f(p*1.5+q*1.9+vec2(tt*.5,-tt*.3));
@@ -880,15 +895,21 @@ gl_FragColor=vec4(col,1.);}`;
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(prog, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
   const uR = gl.getUniformLocation(prog, "r"), uT = gl.getUniformLocation(prog, "t");
-  const scale = 0.5;
+  const scale = coarse ? 0.3 : 0.5, minGap = coarse ? 1000 / 30 : 0;
   const size = () => { const w = Math.max(1, Math.round(canvas.clientWidth * scale)), h = Math.max(1, Math.round(canvas.clientHeight * scale)); if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h); } gl.uniform2f(uR, w, h); };
-  let visible = true, raf = 0; const t0 = performance.now() - 20000;
-  const draw = (now) => { size(); gl.uniform1f(uT, (now - t0) / 1000); gl.drawArrays(gl.TRIANGLES, 0, 3); };
-  const loop = (now) => { draw(now); raf = visible && !document.hidden ? requestAnimationFrame(loop) : 0; };
-  const start = () => { if (!raf && visible && !document.hidden) raf = requestAnimationFrame(loop); };
-  if (reduce) { draw(performance.now()); addEventListener("resize", () => draw(performance.now())); }
+  let visible = true, scrolling = false, raf = 0, scrollTimer = 0, last = 0, drawn = -1e9, motion = 20; // seconds of motion; only advances while drawing
+  const draw = () => { size(); gl.uniform1f(uT, motion); gl.drawArrays(gl.TRIANGLES, 0, 3); };
+  const loop = (now) => {
+    raf = 0;
+    if (!visible || scrolling || document.hidden) { last = 0; return; }
+    if (now - drawn >= minGap) { motion += last ? Math.min(now - last, 50) / 1000 : 0; last = now; drawn = now; draw(); }
+    raf = requestAnimationFrame(loop);
+  };
+  const start = () => { if (!raf && visible && !scrolling && !document.hidden) raf = requestAnimationFrame(loop); };
+  if (reduce) { draw(); addEventListener("resize", draw); }
   else {
-    new IntersectionObserver((e) => { visible = e[0].isIntersecting; start(); }).observe(canvas);
+    new IntersectionObserver((e) => { visible = e[0].intersectionRatio > 0.25; start(); }, { threshold: [0, 0.25, 0.5] }).observe(canvas);
+    addEventListener("scroll", () => { scrolling = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(() => { scrolling = false; start(); }, 160); }, { passive: true });
     document.addEventListener("visibilitychange", start);
     start();
   }
